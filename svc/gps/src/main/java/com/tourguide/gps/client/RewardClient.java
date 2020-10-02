@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tourguide.gps.domain.dto.RewardDto;
 
-@FeignClient(value = "reward", url = "http://localhost:8082/")
+@FeignClient(value = "reward", url = "http://localhost:8082/reward")
 public interface RewardClient {
 
-	@RequestMapping(method = RequestMethod.POST, value = "/")
+	@RequestMapping(method = RequestMethod.POST, value = "")
     void createReward(@RequestBody RewardDto rewardDto);
 	
 }

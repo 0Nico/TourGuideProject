@@ -1,5 +1,7 @@
 package com.tourguide.rewards.web;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,8 +24,8 @@ public class RewardController {
 	
 	
 	@GetMapping
-	public String getRewards(@RequestParam String userName) {
-		return JsonStream.serialize(rewardService.getUserRewards(userName));
+	public List<RewardDto> getRewards(@RequestParam String userName) {
+		return rewardService.getUserRewards(userName);
 	}
 	
 	@GetMapping("/points")

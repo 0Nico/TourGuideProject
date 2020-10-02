@@ -11,8 +11,10 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tourguide.users.client.GpsClient;
 import com.tourguide.users.domain.User;
 
 
@@ -20,6 +22,9 @@ import com.tourguide.users.domain.User;
 public class UserService {
 	
 	public final Map<String, User> internalUserMap = new HashMap<>();
+	
+	@Autowired
+	GpsClient gpsClient;
 	
 	public User getUser(String userName) {
 		return internalUserMap.get(userName);
@@ -36,5 +41,21 @@ public class UserService {
 	}
 	
 	
+	public void initializeInternalUsers(int userNumber) {
+		IntStream.range(0, userNumber).forEach(i -> {
+			String userName = "internalUser" + i;
+			String phone = "000";
+			String email = userName + "@tourGuide.com";
+			User user = new User(UUID.randomUUID(), userName, phone, email);
+			gpsClient.generateUserLocationsHistory(userName);
+			
+			internalUserMap.put(userName, user);
+		});
+		
+	}
+	
+	public void cleanInternalUserMap() {
+		internalUserMap.clear();
+	}
 
 }
