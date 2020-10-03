@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.tourguide.users.client.GpsClient;
 import com.tourguide.users.domain.User;
+import com.tourguide.users.domain.UserPreferences;
 
 
 @Service
@@ -56,6 +57,14 @@ public class UserService {
 	
 	public void cleanInternalUserMap() {
 		internalUserMap.clear();
+	}
+
+	public User updateUserPref(String userName, UserPreferences userPref) {
+		User user = internalUserMap.get(userName);
+		user.setUserPreferences(userPref);
+		internalUserMap.put(userName, user);
+		return user;
+		
 	}
 
 }

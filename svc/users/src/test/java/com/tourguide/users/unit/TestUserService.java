@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 import java.util.UUID;
 
+import javax.money.CurrencyUnit;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.tourguide.users.domain.User;
+import com.tourguide.users.domain.UserPreferences;
 import com.tourguide.users.service.UserService;
 
 @RunWith(SpringRunner.class)
@@ -65,5 +68,28 @@ public class TestUserService {
 		assertTrue(userList.contains(user));
 		assertTrue(userList.contains(user2));
 		assertTrue(userList.size() == 2);
+	}
+	
+	@Test
+	public void testUpdateUserPreferences() {
+		
+		userService.cleanInternalUserMap();
+		
+		User user = new User(UUID.randomUUID(), "jon", "030", "jonny@tourGuide.com");
+		UserPreferences userPref = new UserPreferences();
+		userPref.setAttractionProximity(20);
+		userPref.setNumberOfChildren(2);
+		
+		userService.addUser(user);
+		
+		
+		userPref.setAttractionProximity(40);
+		userPref.setNumberOfChildren(4);
+		userService.updateUserPref("jon", userPref);
+		
+		User updatedUser = userService.getUser("jon");
+		assertEquals(updatedUser.getUserPreferences().getNumberOfChildren(), 4);
+		assertEquals(updatedUser.getUserPreferences().getAttractionProximity(), 40);
+		
 	}
 }

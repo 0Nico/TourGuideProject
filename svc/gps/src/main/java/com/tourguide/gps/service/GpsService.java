@@ -153,7 +153,14 @@ public class GpsService {
 	}
 	
 	
-	
+	public List<VisitedLocation> getAllCurrentLocations() {
+		List<VisitedLocation> userList = new ArrayList<VisitedLocation>(); 
+		internalVisitedLocationMap.forEach((userNam, visitList) -> {
+			VisitedLocation currentUserLocation = visitList.stream().sorted((vloc1,vloc2) -> vloc2.timeVisited.compareTo(vloc1.timeVisited)).findFirst().orElse(null);
+			userList.add(currentUserLocation);
+		});
+		return userList;
+	}
 
 	
 	
@@ -181,12 +188,14 @@ public class GpsService {
 	public List<VisitedLocation> getUserLastLocations(String userName) {
 		return internalVisitedLocationMap.get(userName).stream().filter(loc ->
 		Date.from(LocalDateTime.now().minusDays(31).toInstant(ZoneOffset.UTC)).getTime() < loc.timeVisited.getTime() ) // Visited date must be less than a month
-				.sorted((loc1,loc2) -> loc1.timeVisited.compareTo(loc2.timeVisited)).collect(Collectors.toList());
+				.sorted((loc1,loc2) -> loc2.timeVisited.compareTo(loc1.timeVisited)).collect(Collectors.toList());
 		
 	}
 	
 	public void cleanVisitedLocationMap() {
 		internalVisitedLocationMap.clear();
 	}
+
+	
 
 }
