@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jsoniter.output.JsonStream;
+import com.tourguide.users.domain.Provider;
 import com.tourguide.users.domain.User;
+import com.tourguide.users.service.TripPricerService;
 import com.tourguide.users.service.UserService;
 
 
@@ -21,6 +23,10 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	TripPricerService tripPricerService;
+	
 	
 	@GetMapping 
     public String getUser(@RequestParam String userName) {
@@ -38,5 +44,11 @@ public class UserController {
 	public void createUser(User user) {
 		userService.addUser(user);
 	}
+	
+	@GetMapping("/getTripDeals")
+    public String getTripDeals(@RequestParam String userName) {
+    	List<Provider> providers = tripPricerService.getTripDeals(userService.getUser(userName));
+    	return JsonStream.serialize(providers);
+    }
 	
 }
