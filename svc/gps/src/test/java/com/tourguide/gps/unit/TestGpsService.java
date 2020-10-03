@@ -108,5 +108,29 @@ public class TestGpsService {
 		assertEquals(visitLocationsGenerated.get(0).userName, "Bernard");
 	}
 	
+	@Test
+	public void testGetAllCurrentLocations() {
+		
+		gpsService.cleanVisitedLocationMap();
+		
+		LocationDto locationDto = new LocationDto(ThreadLocalRandom.current().nextDouble(-85.05112878D, 85.05112878D),
+				ThreadLocalRandom.current().nextDouble(-180.0D, 180.0D));
+		
+		VisitedLocationDto visitedLocationDto1 = new VisitedLocationDto(UUID.randomUUID(), "Bernard", locationDto, Date.from(LocalDateTime.now().minusDays(2).toInstant(ZoneOffset.UTC)));
+		VisitedLocationDto visitedLocationDto2 = new VisitedLocationDto(UUID.fromString("a1e286f9-63f9-4cb0-b9e3-19b0f804931d"), "Bernard", locationDto, new Date());
+		VisitedLocationDto visitedLocationDto3 = new VisitedLocationDto(UUID.randomUUID(), "Jon", locationDto, Date.from(LocalDateTime.now().minusDays(3).toInstant(ZoneOffset.UTC)));
+		VisitedLocationDto visitedLocationDto4 = new VisitedLocationDto(UUID.fromString("06feaf7c-b97a-4a79-a403-e14bc234b58e"), "Jon", locationDto, new Date());
+		
+		gpsService.addVisitedLocation(visitedLocationDto1);
+		gpsService.addVisitedLocation(visitedLocationDto2);
+		gpsService.addVisitedLocation(visitedLocationDto3);
+		gpsService.addVisitedLocation(visitedLocationDto4);
+		
+		List<VisitedLocation> allCurrentLocations = gpsService.getAllCurrentLocations();
+	
+	    
+		assertTrue(allCurrentLocations.size() > 0 );
+		assertTrue(allCurrentLocations.stream().anyMatch(visitLoc -> visitLoc.id.equals(UUID.fromString("06feaf7c-b97a-4a79-a403-e14bc234b58e")) ));
+	}
 	
 }
