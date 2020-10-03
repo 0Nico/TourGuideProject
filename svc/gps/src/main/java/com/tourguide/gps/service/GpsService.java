@@ -153,7 +153,14 @@ public class GpsService {
 	}
 	
 	
-	
+	public List<VisitedLocation> getAllCurrentLocations() {
+		List<VisitedLocation> userList = new ArrayList<VisitedLocation>(); 
+		internalVisitedLocationMap.forEach((userNam, visitList) -> {
+			VisitedLocation currentUserLocation = visitList.stream().sorted((vloc1,vloc2) -> vloc1.timeVisited.compareTo(vloc2.timeVisited)).findFirst().orElse(null);
+			userList.add(currentUserLocation);
+		});
+		return userList;
+	}
 
 	
 	
@@ -188,5 +195,7 @@ public class GpsService {
 	public void cleanVisitedLocationMap() {
 		internalVisitedLocationMap.clear();
 	}
+
+	
 
 }

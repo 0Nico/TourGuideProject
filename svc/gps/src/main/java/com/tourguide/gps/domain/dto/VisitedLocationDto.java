@@ -3,8 +3,11 @@ package com.tourguide.gps.domain.dto;
 import java.util.Date;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.tourguide.gps.domain.Location;
 
+@JsonInclude(Include.NON_NULL)
 public class VisitedLocationDto {
 
 	public UUID id;

@@ -38,8 +38,14 @@ public class GpsController {
     }
 	
 	@GetMapping("/getLastMonthLocations")
-    public String getAllCurrentLocations(@RequestParam String userName) {
+    public String getLastMonthLocations(@RequestParam String userName) {
 		List<VisitedLocation> visitedLocations = gpsService.getUserLastLocations(userName);
+    	return JsonStream.serialize(visitedLocations);
+    }
+	
+	@GetMapping("/getAllCurrentLocations")
+    public String getAllCurrentLocations() {
+		List<VisitedLocation> visitedLocations = gpsService.getAllCurrentLocations();
     	return JsonStream.serialize(visitedLocations);
     }
 	
