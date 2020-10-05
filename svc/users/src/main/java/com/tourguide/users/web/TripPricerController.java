@@ -25,8 +25,8 @@ public class TripPricerController {
 	
 	
 	@GetMapping("/getTripDeals")
-    public String getTripDeals(@RequestParam String userName) {
+    public List<Provider> getTripDeals(@RequestParam String userName) {
     	List<Provider> providers = tripPricerService.getTripDeals(userService.getUser(userName));
-    	return JsonStream.serialize(providers);
+    	return providers;
     }
 }

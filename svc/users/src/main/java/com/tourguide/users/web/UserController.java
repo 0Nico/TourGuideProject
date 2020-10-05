@@ -31,26 +31,26 @@ public class UserController {
 	
 	
 	@GetMapping 
-    public String getUser(@RequestParam String userName) {
+    public User getUser(@RequestParam String userName) {
     	User user = userService.getUser(userName);
-		return JsonStream.serialize(user);
+		return user;
     }
 	
 	@GetMapping("/list")
-    public String getUserList() {
+    public List<User> getUserList() {
     	List<User> users = userService.getAllUsers();
-		return JsonStream.serialize(users);
+		return users;
     }
 	
 	@PostMapping
-	public void createUser(User user) {
+	public void createUser(@RequestBody User user) {
 		userService.addUser(user);
 	}
 	
 	@PutMapping("/preferences")
-	public String updateUserPreferences(@RequestParam String userName, @RequestBody UserPreferences userPref) {
+	public User updateUserPreferences(@RequestParam String userName, @RequestBody UserPreferences userPref) {
 		User user = userService.updateUserPref(userName, userPref);
-		return JsonStream.serialize(user);
+		return user;
 	}
 	
 	

@@ -56,7 +56,7 @@ public class TestPerformance {
 	@Autowired
 	private RewardClient rewardClient;
 	
-
+/*
 	@Test
 	public void highVolumeTrackLocation() {
 
@@ -107,5 +107,5 @@ public class TestPerformance {
 
 		System.out.println("highVolumeGetRewards: Time Elapsed: " + TimeUnit.MILLISECONDS.toSeconds(stopWatch.getTime()) + " seconds."); 
 		assertTrue(TimeUnit.MINUTES.toSeconds(20) >= TimeUnit.MILLISECONDS.toSeconds(stopWatch.getTime()));
-	}
+	}*/
 }
