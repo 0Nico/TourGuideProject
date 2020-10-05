@@ -5,12 +5,24 @@ import javax.money.Monetary;
 
 import org.javamoney.moneta.Money;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(Include.NON_NULL)
 public class UserPreferences {
 
 	private int attractionProximity = Integer.MAX_VALUE;
+	
+	@JsonIgnore
 	private CurrencyUnit currency = Monetary.getCurrency("USD");
+	
+	@JsonIgnore
 	private Money lowerPricePoint = Money.of(0, currency);
+	
+	@JsonIgnore
 	private Money highPricePoint = Money.of(Integer.MAX_VALUE, currency);
+	
 	private int tripDuration = 1;
 	private int ticketQuantity = 1;
 	private int numberOfAdults = 1;

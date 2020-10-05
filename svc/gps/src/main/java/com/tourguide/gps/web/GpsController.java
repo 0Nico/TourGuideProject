@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jsoniter.output.JsonStream;
+import com.tourguide.gps.domain.Location;
 import com.tourguide.gps.domain.VisitedLocation;
 import com.tourguide.gps.domain.dto.ClosestAttractionsList;
 import com.tourguide.gps.domain.dto.VisitedLocationDto;
@@ -26,9 +27,9 @@ public class GpsController {
 	
 	
 	@GetMapping("/getUserLocation") 
-	public String getUserLocation(@RequestParam String userName) {
+	public Location getUserLocation(@RequestParam String userName) {
 		VisitedLocation visitedLocation = gpsService.getUserLocation(userName);
-		return JsonStream.serialize(visitedLocation.location);
+		return visitedLocation.location;
 	}
 	
 	@GetMapping("/getClosestAttractions") 
@@ -38,15 +39,15 @@ public class GpsController {
     }
 	
 	@GetMapping("/getLastMonthLocations")
-    public String getLastMonthLocations(@RequestParam String userName) {
+    public List<VisitedLocation> getLastMonthLocations(@RequestParam String userName) {
 		List<VisitedLocation> visitedLocations = gpsService.getUserLastLocations(userName);
-    	return JsonStream.serialize(visitedLocations);
+    	return visitedLocations;
     }
 	
 	@GetMapping("/getAllCurrentLocations")
-    public String getAllCurrentLocations() {
+    public List<VisitedLocation> getAllCurrentLocations() {
 		List<VisitedLocation> visitedLocations = gpsService.getAllCurrentLocations();
-    	return JsonStream.serialize(visitedLocations);
+    	return visitedLocations;
     }
 	
 	@PostMapping("/generateUserLocationsHistory")
