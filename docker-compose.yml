@@ -1,0 +1,28 @@
+version: '3'
+services:
+  gps:
+    build:
+        context: ./svc/gps/
+        dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    restart: always
+    
+  rewards:
+    build:
+        context: ./svc/rewards/
+        dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    restart: always
+    
+  users:
+    build:
+        context: ./svc/users/
+        dockerfile: Dockerfile
+    ports:
+      - "8083:8083"
+    restart: always
+    
+  
+
