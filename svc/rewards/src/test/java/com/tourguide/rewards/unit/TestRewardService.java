@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,7 +25,7 @@ public class TestRewardService {
 	
 	
 	@Test
-	public void testGetUsersReward() {
+	public void testGetUserReward() {
 	
 		rewardService.cleanInternalRewardsMap();
 		
@@ -35,13 +35,14 @@ public class TestRewardService {
 		
 		rewardService.internalRewardsMap.put("gabriel", rewardList);
 		
-		assertTrue(rewardService.getUserRewards("gabriel").size() > 0 );
-		assertTrue(rewardService.getUserRewards("gabriel").size() == 2 );
+		List<RewardDto> rewardList2 = rewardService.getUserRewards("gabriel");
+		assertTrue(rewardList2.size() > 0 );
+		assertTrue(rewardList2.size() == 2 );
 		
 	}
 	
 	@Test
-	public void testGetCumulativePoints() {
+	public void testGetCumulativeRewardPoint() {
 		
 		rewardService.cleanInternalRewardsMap();
 		
@@ -55,7 +56,7 @@ public class TestRewardService {
 	}
 	
 	@Test
-	public void testCreateRewards() {
+	public void testCreateReward() {
 		
 		rewardService.cleanInternalRewardsMap();
 		

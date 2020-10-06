@@ -1,6 +1,8 @@
 version: '3'
 services:
   gps:
+    environment:
+      - CLIENT_REWARDS_BASE_URL=http://rewards:8082/reward
     build:
         context: ./svc/gps/
         dockerfile: Dockerfile
@@ -17,6 +19,9 @@ services:
     restart: always
     
   users:
+    environment:
+      - CLIENT_REWARDS_BASE_URL=http://rewards:8082/reward
+      - CLIENT_GPS_BASE_URL=http://gps:8081/gps
     build:
         context: ./svc/users/
         dockerfile: Dockerfile

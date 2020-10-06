@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tourguide.users.domain.dto.VisitedLocationDto;
 
-@FeignClient(value = "gps", url = "http://localhost:8081/gps")
+@FeignClient(value = "gps", url = "${CLIENT_GPS_BASE_URL:http://localhost:8081/gps}")
 public interface GpsClient {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/generateUserLocationsHistory")

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tourguide.users.domain.dto.RewardDto;
 
-@FeignClient(value = "reward", url = "http://localhost:8082/reward")
+@FeignClient(value = "reward", url = "${CLIENT_REWARDS_BASE_URL:http://localhost:8082/reward}")
 public interface RewardClient {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/points")
