@@ -63,10 +63,10 @@ public class TestUserService {
 		userService.addUser(user);
 		userService.addUser(user2);
 		
-		List<User> userList = userService.getAllUsers();
+		List<String> userList = userService.getAllUsers();
 		
-		assertTrue(userList.contains(user));
-		assertTrue(userList.contains(user2));
+		assertTrue(userList.contains(user.getUserName()));
+		assertTrue(userList.contains(user2.getUserName()));
 		assertTrue(userList.size() == 2);
 	}
 	

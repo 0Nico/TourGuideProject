@@ -31,8 +31,8 @@ public class UserService {
 		return internalUserMap.get(userName);
 	}
 	
-	public List<User> getAllUsers() {
-		return internalUserMap.values().stream().collect(Collectors.toList());
+	public List<String> getAllUsers() {
+		return internalUserMap.values().stream().map(u -> u.getUserName()).collect(Collectors.toList());
 	}
 	
 	public void addUser(User user) {
