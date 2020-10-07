@@ -3,6 +3,7 @@ services:
   gps:
     environment:
       - CLIENT_REWARDS_BASE_URL=http://rewards:8082/reward
+      - CLIENT_USERS_BASE_URL=http://users:8083/user
     build:
         context: ./svc/gps/
         dockerfile: Dockerfile
