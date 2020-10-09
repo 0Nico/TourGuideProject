@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang.time.StopWatch;
 import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -56,7 +56,7 @@ public class TestPerformance {
 	@Autowired
 	private RewardClient rewardClient;
 	
-/*
+
 	@Test
 	public void highVolumeTrackLocation() {
 
@@ -64,20 +64,20 @@ public class TestPerformance {
 		
 		userService.initializeInternalUsers(100000);
 
-		List<User> allUsers = new ArrayList<>();
+		List<String> allUsers = new ArrayList<>();
 		allUsers = userService.getAllUsers();
 		
 	    StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
-		for(User user : allUsers) {
-			gpsClient.getUserLocation(user.getUserName());
+		for(String user : allUsers) {
+			gpsClient.getUserLocation(user);
 		}
 		stopWatch.stop();
 
 		System.out.println("highVolumeTrackLocation: Time Elapsed: " + TimeUnit.MILLISECONDS.toSeconds(stopWatch.getTime()) + " seconds."); 
 		assertTrue(TimeUnit.MINUTES.toSeconds(15) >= TimeUnit.MILLISECONDS.toSeconds(stopWatch.getTime()));
-	}*/
-	/*
+	}
+	
 	@Test
 	public void highVolumeGetRewards() {
 
@@ -89,23 +89,23 @@ public class TestPerformance {
 		stopWatch.start();
 
 	    
-	    List<User> allUsers = new ArrayList<>();
+	    List<String> allUsers = new ArrayList<>();
 		allUsers = userService.getAllUsers();
 		
 		UUID uuid = UUID.randomUUID();
 		allUsers.forEach(u -> {
 			LocationDto locationDto = new LocationDto(33.817595D, -117.922008D);
-			VisitedLocationDto visitedLocationDto = new VisitedLocationDto(uuid, u.getUserName(), locationDto, new Date());
+			VisitedLocationDto visitedLocationDto = new VisitedLocationDto(uuid, u, locationDto, new Date());
 			gpsClient.addVisitedLocations(visitedLocationDto);
 		});
 	     
 	    
-		for(User user : allUsers) {
-			assertTrue(rewardClient.getRewards(user.getUserName()).size() > 0 );
+		for(String user : allUsers) {
+			assertTrue(rewardClient.getRewards(user).size() > 0 );
 		}
 		stopWatch.stop();
 
 		System.out.println("highVolumeGetRewards: Time Elapsed: " + TimeUnit.MILLISECONDS.toSeconds(stopWatch.getTime()) + " seconds."); 
 		assertTrue(TimeUnit.MINUTES.toSeconds(20) >= TimeUnit.MILLISECONDS.toSeconds(stopWatch.getTime()));
-	}*/
+	}
 }
